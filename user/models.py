@@ -3,8 +3,7 @@ from django.db import models
 from .manager import CustomUserManager
 
 class CustomUser(AbstractUser):
-    username = None
-    phone = models.CharField(max_length=15,unique=True)
+    phone = models.CharField(max_length=15,null=True,blank=True)
     age = models.IntegerField(null=True,blank=True)
     image = models.ImageField(upload_to='Users',null=True,blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -16,10 +15,10 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'phone'
-    REQUIRED_FIELDS = ['age']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.phone
+        return self.username
 
 

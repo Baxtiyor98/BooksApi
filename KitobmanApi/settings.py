@@ -44,6 +44,16 @@ INSTALLED_APPS = [
     'user',
 
     'rest_framework',
+    'rest_framework.authtoken',
+
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -77,9 +87,21 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny'
+        'rest_framework.permissions.IsAuthenticated'
+        # 'rest_framework.permissions.AllowAny'
+    ],
+
+    "DEFAULT_AUTHENTICATION_CLASSES":[
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        # 'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ]
+
 }
+
+SITE_ID = 1
+
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 WSGI_APPLICATION = 'KitobmanApi.wsgi.application'
 
@@ -91,6 +113,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'bookapi',
+        # 'USER': 'postgres',
+        # 'PASSWORD': '123',
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
     }
 }
 
